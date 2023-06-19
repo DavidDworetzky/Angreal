@@ -16,6 +16,10 @@
       {
         "command": "bug-zero.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "bug-zero.suggest",
+        "title": "Suggest"
       }
     ]
   },

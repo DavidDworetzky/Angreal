@@ -20,6 +20,11 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	context.subscriptions.push(disposable);
+
+	let suggestDispoable = vscode.commands.registerCommand('bug-zero.suggest', () => {
+		vscode.window.showInformationMessage('Suggest');
+	});
+	context.subscriptions.push(suggestDispoable);
 }
 
 // This method is called when your extension is deactivated
