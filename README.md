@@ -1,2 +1,2 @@
-# Bug-Zero
-Repository for VsCode Extension "Find My Bug" functionality.
+# Angreal
+Developer Productivity Extension interfacing with LLMs
