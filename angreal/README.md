@@ -1,6 +1,6 @@
-# bug-zero README
+# angreal README
 
-This is the README for your extension "bug-zero". After writing up a brief description, we recommend including the following sections.
+This is the README for your extension "angreal". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 
