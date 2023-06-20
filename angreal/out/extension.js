@@ -8,9 +8,18 @@ const vscode = require("vscode");
 // Your extension is activated the very first time the command is executed
 function activate(context) {
     // Get configuration settings for your extension
-    const configuration = vscode.workspace.getConfiguration('angreal');
+    const configuration = vscode.workspace.getConfiguration('Angreal');
     // Try to retrieve the OpenAI API key
     let openAIKey = configuration.get('OpenAIKey');
+    // The command has been defined in the package.json file
+    // Now provide the implementation of the command with registerCommand
+    // The commandId parameter must match the command field in package.json
+    let disposable = vscode.commands.registerCommand('angreal.suggestion', () => {
+        // The code you place here will be executed every time your command is executed
+        // Display a message box to the user
+        vscode.window.showInformationMessage('Code suggestions with angreal!');
+    });
+    context.subscriptions.push(disposable);
     // If the OpenAI API key isn't available, display a warning
     if (!openAIKey) {
         vscode.window.showWarningMessage('OpenAI API key is not available. Please provide it in the configuration settings.');
@@ -19,15 +28,6 @@ function activate(context) {
         // Use the console to output diagnostic information (console.log) and errors (console.error)
         // This line of code will only be executed once when your extension is activated
         console.log('Congratulations, your extension "angreal" is now active!');
-        // The command has been defined in the package.json file
-        // Now provide the implementation of the command with registerCommand
-        // The commandId parameter must match the command field in package.json
-        let disposable = vscode.commands.registerCommand('angreal.suggestion', () => {
-            // The code you place here will be executed every time your command is executed
-            // Display a message box to the user
-            vscode.window.showInformationMessage('Code suggestions with angreal!');
-        });
-        context.subscriptions.push(disposable);
     }
 }
 exports.activate = activate;

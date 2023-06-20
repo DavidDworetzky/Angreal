@@ -12,6 +12,16 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
+  "configuration": {
+    "title": "Angreal",
+    "properties": {
+      "angreal.OpenAIKey": {
+        "type": ["string", "null"],
+        "default": "",
+        "description": "OpenAI API Key"
+      }
+    }
+  },
     "commands": [
       {
         "command": "angreal.suggestion",
