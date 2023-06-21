@@ -25,7 +25,7 @@ function registerAngrealSuggestionCommand(context, openAiClient) {
             const linesToCompleteQuantity = parseInt(linesToComplete.trim());
             vscode.window.withProgress({
                 location: vscode.ProgressLocation.Notification,
-                title: "channeling with angreal...",
+                title: "Generating suggestions...",
                 cancellable: true
             }, async (progress, token) => {
                 token.onCancellationRequested(() => {
