@@ -109,7 +109,6 @@ export function activate(context: vscode.ExtensionContext) {
 	const configuration = vscode.workspace.getConfiguration('angreal');
 	// Try to retrieve the OpenAI API key
 	let openAIKey = configuration.get<string>('OpenAIKey');
-	vscode.window.showInformationMessage('Open AI Key: ' + openAIKey);
 
 	// If the OpenAI API key isn't available, display a warning
 	if (!openAIKey) {
