@@ -4,30 +4,60 @@ exports.deactivate = exports.activate = void 0;
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require("vscode");
+const OpenAIClient_1 = require("./resources/OpenAIClient");
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 function activate(context) {
     // Get configuration settings for your extension
-    const configuration = vscode.workspace.getConfiguration('Angreal');
+    const configuration = vscode.workspace.getConfiguration('angreal');
     // Try to retrieve the OpenAI API key
     let openAIKey = configuration.get('OpenAIKey');
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with registerCommand
-    // The commandId parameter must match the command field in package.json
-    let disposable = vscode.commands.registerCommand('angreal.suggestion', () => {
-        // The code you place here will be executed every time your command is executed
-        // Display a message box to the user
-        vscode.window.showInformationMessage('Code suggestions with angreal!');
-    });
-    context.subscriptions.push(disposable);
+    vscode.window.showInformationMessage('Open AI Key: ' + openAIKey);
     // If the OpenAI API key isn't available, display a warning
     if (!openAIKey) {
         vscode.window.showWarningMessage('OpenAI API key is not available. Please provide it in the configuration settings.');
     }
     else {
-        // Use the console to output diagnostic information (console.log) and errors (console.error)
-        // This line of code will only be executed once when your extension is activated
-        console.log('Congratulations, your extension "angreal" is now active!');
+        let openAiClient = new OpenAIClient_1.default(openAIKey);
+        let disposable = vscode.commands.registerCommand('angreal.suggestion', async () => {
+            const editor = vscode.window.activeTextEditor;
+            if (editor) {
+                const document = editor.document;
+                const selection = editor.selection;
+                const line = document.lineAt(selection.active.line).text.trim();
+                const entireContent = document.getText();
+                if (line.length === 0) {
+                    vscode.window.showWarningMessage('Current line is empty, please type something.');
+                    return;
+                }
+                let linesToComplete = await vscode.window.showInputBox({ prompt: 'Enter the number of lines to complete' });
+                if (!linesToComplete) {
+                    return;
+                }
+                const linesToCompleteQuantity = parseInt(linesToComplete.trim());
+                vscode.window.withProgress({
+                    location: vscode.ProgressLocation.Notification,
+                    title: "channeling with angreal...",
+                    cancellable: true
+                }, async (progress, token) => {
+                    token.onCancellationRequested(() => {
+                        console.log("User canceled the long running operation");
+                    });
+                    progress.report({ increment: 0 });
+                    const response = await openAiClient.suggest(entireContent, line, linesToCompleteQuantity);
+                    progress.report({ increment: 100 });
+                    // Adding completion to the end of the line
+                    editor.edit(editBuilder => {
+                        const position = document.lineAt(selection.active.line).range.end;
+                        editBuilder.insert(position, response);
+                    });
+                });
+            }
+            else {
+                vscode.window.showWarningMessage('No active editor found.');
+            }
+        });
+        context.subscriptions.push(disposable);
     }
 }
 exports.activate = activate;
