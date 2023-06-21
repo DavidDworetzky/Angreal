@@ -29,3 +29,7 @@ Users appreciate release notes as you update your extension.
 ### 0.1
 
 Initial release of angreal.
+
+### 0.1.1 
+
+Bugfix with default open ai api key.
