@@ -4,14 +4,22 @@ const axios = require("axios");
 const modes = {
     'suggest': {
         'role': 'You are a coding assistant helping complete suggestions. You will be given a file context and a line of code, followed by a number of lines to complete.',
-        template: 'CONTEXT:{0},CODE:{1},NUMBER_OF_LINES:{2}'
+        template: 'CONTEXT:{0},CODE:{1},NUMBER_OF_LINES:{2}',
+        settings: {
+            "temperature": 0.7,
+            "top_p": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0,
+            "n": 1,
+            "max_tokens": 1028,
+        }
     },
 };
 class OpenAIClient {
     constructor(apiKey) {
         this.apiKey = apiKey;
         this.axiosInstance = axios.default.create({
-            baseURL: 'https://api.openai.com/v1/',
+            baseURL: 'https://api.openai.com/v1/chat/',
             headers: {
                 'Authorization': `Bearer ${this.apiKey}`,
                 'Content-Type': 'application/json',
@@ -20,22 +28,20 @@ class OpenAIClient {
     }
     async suggest(file, line, numberOfLines) {
         const suggestionMode = modes['suggest'];
+        const settings = suggestionMode.settings;
         const prompt = modes['suggest'].template.replace('{0}', file).replace('{1}', line).replace('{2}', numberOfLines.toString());
-        return await this.chatCompletion(suggestionMode.role, prompt);
+        return await this.chatCompletion(suggestionMode.role, prompt, settings);
     }
-    async chatCompletion(role, prompt) {
+    async chatCompletion(role, prompt, settings) {
         const requestBody = {
-            model: 'gpt-4.0-turbo',
+            model: 'gpt-4',
             messages: [
                 {
-                    role: 'system',
-                    content: role
-                },
-                {
                     role: 'user',
-                    content: prompt
-                }
-            ]
+                    content: role + '\n' + prompt,
+                },
+            ],
+            ...settings
         };
         try {
             const response = await this.axiosInstance.post('completions', requestBody);

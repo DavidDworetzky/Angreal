@@ -52,12 +52,14 @@ export function activate(context: vscode.ExtensionContext) {
 	
 					progress.report({ increment: 0 });
 					const response = await openAiClient.suggest(entireContent, line, linesToCompleteQuantity);
+					// Add a newline to the beginning of the response 
+					const formattedResponse = '\n' + response;
 					progress.report({ increment: 100 });
 	
 					// Adding completion to the end of the line
 					editor.edit(editBuilder => {
 						const position = document.lineAt(selection.active.line).range.end;
-						editBuilder.insert(position, response);
+						editBuilder.insert(position, formattedResponse);
 					});
 				});
 			} else {
