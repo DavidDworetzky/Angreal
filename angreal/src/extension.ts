@@ -27,7 +27,7 @@ function registerAngrealSuggestionCommand(context: vscode.ExtensionContext, open
 
 			vscode.window.withProgress({
 				location: vscode.ProgressLocation.Notification,
-				title: "channeling with angreal...",
+				title: "Generating suggestions...",
 				cancellable: true
 			}, async (progress, token) => {
 				token.onCancellationRequested(() => {
@@ -99,6 +99,8 @@ function registerAngrealReplaceSelectionCommand(context: vscode.ExtensionContext
 
 	context.subscriptions.push(disposable);
 }
+
+
 
 // Update the activate function to use the new registerAngrealSuggestionCommand function
 export function activate(context: vscode.ExtensionContext) {

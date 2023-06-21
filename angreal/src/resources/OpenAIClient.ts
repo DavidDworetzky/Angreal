@@ -33,9 +33,6 @@ const modes = {
     },
 };
 
-
-
-
 class OpenAIClient {
     private axiosInstance;
 
