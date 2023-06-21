@@ -25,10 +25,15 @@
         }
       }
     },
+    
     "commands": [
       {
         "command": "angreal.suggestion",
         "title": "Suggestion"
+      },
+      {
+        "command": "angreal.replaceSelection",
+        "title": "ReplaceSelection"
       }
     ]
   },
