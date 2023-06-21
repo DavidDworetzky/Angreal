@@ -2,8 +2,8 @@
 
 All notable changes to the "angreal" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [Version 0.1]
 
-## [Unreleased]
-
-- Initial release
+- Initial release 0.1
+- Contains Suggestion
+- Contains Replace Selected

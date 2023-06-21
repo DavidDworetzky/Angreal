@@ -2,6 +2,7 @@
   "name": "angreal",
   "displayName": "angreal",
   "description": "Developer Productivity Enhancement using LLMs",
+  "icon" : "images/AngrealLogo.png",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.79.0"
