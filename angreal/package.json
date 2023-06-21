@@ -3,6 +3,7 @@
   "displayName": "angreal",
   "description": "Developer Productivity Enhancement using LLMs",
   "icon" : "images/AngrealLogo.png",
+  "repository" : "https://github.com/DavidDworetzky/Angreal",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.79.0"
