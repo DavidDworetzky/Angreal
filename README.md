@@ -2,6 +2,8 @@
 
 Developer productivity extension using LLMs for productivity and code manipulation.
 
+Angreal allows you to suggest code completions and code replacements in editor.
+
 ## Features
 
 1. Suggestion
