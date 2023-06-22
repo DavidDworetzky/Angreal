@@ -10,8 +10,12 @@ All notable changes to the "angreal" extension will be documented in this file.
 
 ### [Version 0.1.1] 
 
-Bugfix with default open ai  key.
+Bugfix with default open AI key.
 
 ### [Version 0.1.2]
 
 Add keybindings to replaceSuggestion and suggestion commands.
+
+### [Version 0.1.3]
+
+Fix keybinding bug.
