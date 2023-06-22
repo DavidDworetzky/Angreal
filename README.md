@@ -12,7 +12,7 @@ Developer productivity extension using LLMs for productivity and code manipulati
 
 ## Requirements
 
-Requires an OpenAI Api Key in the settings path
+Requires an OpenAI Api Key in the settings path -> see Extension Settings.
 
 ## Extension Settings
 
