@@ -5,7 +5,7 @@
   "icon": "images/AngrealLogo.png",
   "repository": "https://github.com/DavidDworetzky/Angreal",
   "publisher": "Cuendillar",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "engines": {
     "vscode": "^1.79.0"
   },
@@ -17,14 +17,14 @@
   "contributes": {
     "keybindings": [
       {
-        "key": "ctrl+shift+A+S",
-        "mac": "cmd+shift+A+S",
+        "key": "ctrl+shift+a ctrl+shift+s",
+        "mac": "cmd+shift+a cmd+shift+s",
         "command": "angreal.suggestion",
         "when": "editorTextFocus"
       },
       {
-        "key": "ctrl+shift+A+R",
-        "mac": "cmd+shift+A+R",
+        "key": "ctrl+shift+a ctrl+shift+r",
+        "mac": "cmd+shift+a cmd+shift+r",
         "command": "angreal.replaceSelection",
         "when": "editorTextFocus"
       }
