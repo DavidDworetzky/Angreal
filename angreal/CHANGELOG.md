@@ -19,3 +19,7 @@ Add keybindings to replaceSuggestion and suggestion commands.
 ### [Version 0.1.3]
 
 Fix keybinding bug.
+
+### [Version 0.1.4]
+
+Change keybindings.

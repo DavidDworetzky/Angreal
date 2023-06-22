@@ -41,3 +41,7 @@ Add keybindings
 ### 0.1.3 
 
 Fix keybinding bug.
+
+### 0.1.4
+
+Change keybindings.
