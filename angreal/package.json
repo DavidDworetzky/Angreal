@@ -2,10 +2,10 @@
   "name": "angreal",
   "displayName": "angreal",
   "description": "Developer Productivity Enhancement using LLMs",
-  "icon" : "images/AngrealLogo.png",
-  "repository" : "https://github.com/DavidDworetzky/Angreal",
-  "publisher" : "Cuendillar",
-  "version": "0.1.1",
+  "icon": "images/AngrealLogo.png",
+  "repository": "https://github.com/DavidDworetzky/Angreal",
+  "publisher": "Cuendillar",
+  "version": "0.1.2",
   "engines": {
     "vscode": "^1.79.0"
   },
@@ -15,6 +15,20 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
+    "keybindings": [
+      {
+        "key": "ctrl+shift+a+s",
+        "mac": "cmd+shift+a+s",
+        "command": "angreal.suggestion",
+        "when": "editorTextFocus"
+      },
+      {
+        "key": "ctrl+shift+a+r",
+        "mac": "cmd+shift+a+r",
+        "command": "angreal.replaceSelection",
+        "when": "editorTextFocus"
+      }
+    ],
     "configuration": {
       "title": "Angreal",
       "properties": {
@@ -28,7 +42,6 @@
         }
       }
     },
-    
     "commands": [
       {
         "command": "angreal.suggestion",
