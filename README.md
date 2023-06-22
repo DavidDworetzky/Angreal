@@ -33,3 +33,11 @@ Initial release of angreal.
 ### 0.1.1 
 
 Bugfix with default open ai api key.
+
+### 0.1.2
+
+Add keybindings
+
+### 0.1.3 
+
+Fix keybinding bug.
