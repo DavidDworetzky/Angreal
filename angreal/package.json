@@ -5,7 +5,7 @@
   "icon": "images/AngrealLogo.png",
   "repository": "https://github.com/DavidDworetzky/Angreal",
   "publisher": "Cuendillar",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "engines": {
     "vscode": "^1.79.0"
   },
@@ -39,6 +39,20 @@
           ],
           "default": "",
           "description": "OpenAI API Key"
+        },"angreal.GroqKey": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "default": "",
+            "description": "Groq API Key"
+          },
+          "angreal.ModelProvider": {
+            "type": "string",
+            "default": "groq",
+            "description": "Default Model Type used for angreal extension. Default is groq - llama."
+          }
+          }
         }
       }
     },

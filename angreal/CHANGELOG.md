@@ -23,3 +23,7 @@ Fix keybinding bug.
 ### [Version 0.1.4]
 
 Change keybindings.
+
+### [Version 0.2.0]
+
+Add Groq Support and multi-provider support.
