@@ -1,10 +1,11 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import PluginManager from './PluginManager';
+import CompletionClient from './resources/CompletionClient';
 
-import OpenAIClient from './resources/OpenAIClient';
 //Function that extracts the angreal.suggestion command from the activate function and registers it as a command
-function registerAngrealSuggestionCommand(context: vscode.ExtensionContext, openAiClient: OpenAIClient) {
+function registerAngrealSuggestionCommand(context: vscode.ExtensionContext, openAiClient: CompletionClient) {
 	const disposable = vscode.commands.registerCommand('angreal.suggestion', async () => {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
@@ -55,7 +56,7 @@ function registerAngrealSuggestionCommand(context: vscode.ExtensionContext, open
 }
 //Function that extracts the angreal.replaceSelection command from the activate function and registers it as a command
 // replaceSelection is a command that takes the document, the selection, and a prompt taken from the user and uses it to transform the selected code in the editor
-function registerAngrealReplaceSelectionCommand(context: vscode.ExtensionContext, openAiClient: OpenAIClient) {
+function registerAngrealReplaceSelectionCommand(context: vscode.ExtensionContext, openAiClient: CompletionClient) {
 	const disposable = vscode.commands.registerCommand('angreal.replaceSelection', async () => {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
@@ -107,17 +108,21 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// Get configuration settings for your extension
 	const configuration = vscode.workspace.getConfiguration('angreal');
-	// Try to retrieve the OpenAI API key
-	let openAIKey = configuration.get<string>('OpenAIKey');
+	// Try to retrieve the api type 
+	let modelProvider = configuration.get<string>('ModelProvider');
 
-	// If the OpenAI API key isn't available, display a warning
-	if (!openAIKey) {
-		vscode.window.showWarningMessage('OpenAI API key is not available. Please provide it in the configuration settings.');
+	try 
+	{
+		const pluginManager = new PluginManager(modelProvider, configuration);
+		const completionClient = pluginManager.getClient() as CompletionClient;
+
+		registerAngrealSuggestionCommand(context, completionClient);
+		registerAngrealReplaceSelectionCommand(context, completionClient);
 	}
-	else {
-		let openAiClient = new OpenAIClient(openAIKey);
-		registerAngrealSuggestionCommand(context, openAiClient);
-		registerAngrealReplaceSelectionCommand(context, openAiClient);
+	catch(error)
+	{
+		const message = error as Error;
+		vscode.window.showErrorMessage(message.message);
 	}
 }
 

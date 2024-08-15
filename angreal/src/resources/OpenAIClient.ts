@@ -1,4 +1,5 @@
 import * as axios from 'axios';
+import CompletionClient from './CompletionClient';
 
 const modes = {
     'suggest':
@@ -33,7 +34,7 @@ const modes = {
     },
 };
 
-class OpenAIClient {
+class OpenAIClient implements CompletionClient {
     private axiosInstance;
 
     constructor(private apiKey: string) {

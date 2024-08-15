@@ -1,4 +1,5 @@
 import * as Groq from 'groq-sdk';
+import CompletionClient from './CompletionClient';
 
 const modes = {
     'suggest':
@@ -17,7 +18,7 @@ const modes = {
         }
     },
     // next mode is a mode called 'replace' that replaces a selected section of code with new code based off of context
-'replace':
+    'replace':
     {
         'role':
             'You are a coding assistant helping replace a selected section of code with new code based on context. You will be given a file context, the original code snippet, and a prompt used to transform the replacement.',
@@ -33,13 +34,16 @@ const modes = {
     },
 };
 
-class GroqClient
+class GroqClient implements CompletionClient 
 {
+  private groq = new Groq();
 
-  const groq = new Groq();
+  constructor (private apiKey: string) {
+    this.groq.setApiKey(apiKey);
+  }
 
   private async chatCompletion(role: string, prompt: string, settings: any): Promise<string> {
-    const chatCompletion = await groq.chat.completions.create({
+    const chatCompletion = await this.groq.chat.completions.create({
       "messages": [
         {
           "role": role,
