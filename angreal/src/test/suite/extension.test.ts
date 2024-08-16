@@ -13,3 +13,7 @@ suite('Extension Test Suite', () => {
 		assert.strictEqual(-1, [1, 2, 3].indexOf(0));
 	});
 });
+
+suite('Suggestion Test Suite', () => {
+	vscode.window.showInformationMessage('Start all suggestion tests.');
+});
