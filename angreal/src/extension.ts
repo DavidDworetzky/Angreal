@@ -113,7 +113,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	try 
 	{
-		const pluginManager = new PluginManager(modelProvider, configuration);
+		const pluginManager = new PluginManager(modelProvider ?? 'groq', configuration);
 		const completionClient = pluginManager.getClient() as CompletionClient;
 
 		registerAngrealSuggestionCommand(context, completionClient);
