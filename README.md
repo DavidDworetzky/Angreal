@@ -21,6 +21,7 @@ Requires an OpenAI Api Key in the settings path -> see Extension Settings.
 This extension contributes the following settings:
 
 * `angreal.OpenAIKey`: Open AI Api Key.
+* `angreal.GroqKey` : Groq Api Key.
 
 ## Known Issues
 
@@ -47,3 +48,7 @@ Fix keybinding bug.
 ### 0.1.4
 
 Change keybindings.
+
+### 0.2.1 
+
+Add Groq server support

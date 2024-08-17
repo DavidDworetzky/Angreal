@@ -36,7 +36,7 @@ const modes = {
 
 class GroqClient implements CompletionClient 
 {
-  private groq = new Groq();
+  private groq = new Groq({apiKey : this.apiKey});
 
   constructor (private apiKey: string) {
     this.groq.apiKey = this.apiKey;
