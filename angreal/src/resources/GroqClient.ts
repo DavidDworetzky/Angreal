@@ -79,6 +79,10 @@ class GroqClient implements CompletionClient
     return await this.chatCompletion(replaceMode.role, prompt, settings);
   }
 
+  public string describe(): string {
+    return 'Groq Client.';
+  }
+
 }
 
 export default GroqClient;
