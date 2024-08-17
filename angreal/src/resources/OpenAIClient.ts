@@ -61,6 +61,10 @@ class OpenAIClient implements CompletionClient {
         return await this.chatCompletion(replaceMode.role, prompt, settings);
     }
 
+    public describe(): string {
+        return 'OpenAI Client.';
+      }
+
     public async chatCompletion(role: string, prompt: string, settings : any): Promise<string> {
         const requestBody = {
             model: 'gpt-4', // Assuming that this is the GPT-4 model's name

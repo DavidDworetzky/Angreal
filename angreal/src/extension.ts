@@ -25,10 +25,10 @@ function registerAngrealSuggestionCommand(context: vscode.ExtensionContext, open
 				return;
 			}
 			const linesToCompleteQuantity = parseInt(linesToComplete.trim());
-
+			const clientType = openAiClient.describe();
 			vscode.window.withProgress({
 				location: vscode.ProgressLocation.Notification,
-				title: "Generating suggestions...",
+				title: "Generating suggestions with {0}".replace('{0}', clientType),
 				cancellable: true
 			}, async (progress, token) => {
 				token.onCancellationRequested(() => {
@@ -74,10 +74,10 @@ function registerAngrealReplaceSelectionCommand(context: vscode.ExtensionContext
 			if (!prompt) {
 				return;
 			}
-
+			const clientType = openAiClient.describe();
 			vscode.window.withProgress({
 				location: vscode.ProgressLocation.Notification,
-				title: "Transforming selected code...",
+				title: "Transforming selected code with {0}".replace('{0}', clientType),
 				cancellable: true
 			}, async (progress, token) => {
 				token.onCancellationRequested(() => {
