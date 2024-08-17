@@ -1,4 +1,4 @@
-import * as Groq from 'groq-sdk';
+import { Groq } from 'groq-sdk';
 import CompletionClient from './CompletionClient';
 
 const modes = {
@@ -39,15 +39,16 @@ class GroqClient implements CompletionClient
   private groq = new Groq();
 
   constructor (private apiKey: string) {
-    this.groq.setApiKey(apiKey);
+    this.groq.apiKey = this.apiKey;
   }
 
   private async chatCompletion(role: string, prompt: string, settings: any): Promise<string> {
     const chatCompletion = await this.groq.chat.completions.create({
       "messages": [
         {
-          "role": role,
-          "content": prompt
+          //ignore ts error 
+          "role": "assistant", // Update the role to a valid option
+          "content": role + prompt
         }
       ],
       "model": "llama3-70b-8192",
