@@ -118,14 +118,6 @@ export function activate(context: vscode.ExtensionContext) {
 	// Try to retrieve the api type 
 	let modelProvider = configuration.get<string>('ModelProvider');
 	const verbose = configuration.get<boolean>('Verbose');
-	const temperature = configuration.get<number>('Temperature');
-	const maxTokens = configuration.get<number>('MaxTokens');
-	const completionSettings = {
-		Temperature: temperature,
-		MaxTokens: maxTokens
-	} as CompletionSettings;
-	
-
 	try 
 	{
 		const pluginManager = new PluginManager(modelProvider ?? 'groq', configuration);

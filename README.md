@@ -22,6 +22,8 @@ This extension contributes the following settings:
 
 * `angreal.OpenAIKey`: Open AI Api Key.
 * `angreal.GroqKey` : Groq Api Key.
+* `angreal.Temperature` : Temperature of language completion
+* `angreal.MaxTokens` : Max Tokens sent to completion endpoint.
 
 ## Known Issues
 
@@ -51,4 +53,8 @@ Change keybindings.
 
 ### 0.2.1 
 
-Add Groq server support
+Add Groq server support.
+
+### 0.2.2
+
+Add model temperature and maxtokens settings.
