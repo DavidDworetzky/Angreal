@@ -7,8 +7,7 @@ import CompletionSettings from './completionSettings';
 class PluginManager {
     private ClientType: string;
     private VsCodeConfiguration: any;
-    private CompletionSettings: CompletionSettings;
-
+    
     constructor(clientType: string, vsCodeConfiguration: any) {
         this.ClientType = clientType;
         this.VsCodeConfiguration = vsCodeConfiguration;
