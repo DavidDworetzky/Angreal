@@ -52,6 +52,21 @@
           "type": "string",
           "default": "groq",
           "description": "Default Model Type used for angreal extension. Default is groq - llama."
+        },
+        "angreal.MaxTokens": {
+          "type": "number",
+          "default": 1024,
+          "description": "Default Context size for the model."
+        },
+        "angreal.Temperature": {
+          "type": "number",
+          "default": 0.7,
+          "description": "Default Temperature for the model."
+        },
+        "angreal.Verbose": {
+          "type": "boolean",
+          "default": false,
+          "description": "Verbose Logging Mode"
         }
       }
     },

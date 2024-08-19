@@ -3,9 +3,13 @@
 import * as vscode from 'vscode';
 import PluginManager from './PluginManager';
 import CompletionClient from './resources/CompletionClient';
+import CompletionSettings from './completionSettings';
 
 //Function that extracts the angreal.suggestion command from the activate function and registers it as a command
-function registerAngrealSuggestionCommand(context: vscode.ExtensionContext, openAiClient: CompletionClient) {
+function registerAngrealSuggestionCommand(context: vscode.ExtensionContext, openAiClient: CompletionClient, verbose: boolean = false) {
+	if (verbose){
+		console.log('Registering angreal.suggestion command');
+	}
 	const disposable = vscode.commands.registerCommand('angreal.suggestion', async () => {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
@@ -56,7 +60,10 @@ function registerAngrealSuggestionCommand(context: vscode.ExtensionContext, open
 }
 //Function that extracts the angreal.replaceSelection command from the activate function and registers it as a command
 // replaceSelection is a command that takes the document, the selection, and a prompt taken from the user and uses it to transform the selected code in the editor
-function registerAngrealReplaceSelectionCommand(context: vscode.ExtensionContext, openAiClient: CompletionClient) {
+function registerAngrealReplaceSelectionCommand(context: vscode.ExtensionContext, openAiClient: CompletionClient, verbose: boolean = false) {
+	if (verbose){
+		console.log('Registering angreal.replaceSelection command');
+	}
 	const disposable = vscode.commands.registerCommand('angreal.replaceSelection', async () => {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
@@ -110,14 +117,22 @@ export function activate(context: vscode.ExtensionContext) {
 	const configuration = vscode.workspace.getConfiguration('angreal');
 	// Try to retrieve the api type 
 	let modelProvider = configuration.get<string>('ModelProvider');
+	const verbose = configuration.get<boolean>('Verbose');
+	const temperature = configuration.get<number>('Temperature');
+	const maxTokens = configuration.get<number>('MaxTokens');
+	const completionSettings = {
+		Temperature: temperature,
+		MaxTokens: maxTokens
+	} as CompletionSettings;
+	
 
 	try 
 	{
 		const pluginManager = new PluginManager(modelProvider ?? 'groq', configuration);
 		const completionClient = pluginManager.getClient() as CompletionClient;
 
-		registerAngrealSuggestionCommand(context, completionClient);
-		registerAngrealReplaceSelectionCommand(context, completionClient);
+		registerAngrealSuggestionCommand(context, completionClient, verbose);
+		registerAngrealReplaceSelectionCommand(context, completionClient, verbose);
 	}
 	catch(error)
 	{
