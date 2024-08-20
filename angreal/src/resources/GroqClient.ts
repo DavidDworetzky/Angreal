@@ -1,5 +1,6 @@
 import { Groq } from 'groq-sdk';
 import CompletionClient from './CompletionClient';
+import CompletionSettings from '../completionSettings';
 
 const modes = {
     'suggest':
@@ -37,9 +38,11 @@ const modes = {
 class GroqClient implements CompletionClient 
 {
   private groq = new Groq({apiKey : this.apiKey});
+  private CompletionSettings: CompletionSettings;
 
-  constructor (private apiKey: string) {
+  constructor (private apiKey: string, completionSettings: CompletionSettings) {
     this.groq.apiKey = this.apiKey;
+    this.CompletionSettings = completionSettings;
   }
 
   private async chatCompletion(role: string, prompt: string, settings: any): Promise<string> {
@@ -52,8 +55,8 @@ class GroqClient implements CompletionClient
         }
       ],
       "model": "llama3-70b-8192",
-      "temperature": settings.temperature,
-      "max_tokens": settings.max_tokens,
+      "temperature": this.CompletionSettings.Temperature ? this.CompletionSettings.Temperature : settings.temperature,
+      "max_tokens": this.CompletionSettings.MaxTokens ? this.CompletionSettings.MaxTokens : settings.max_tokens,
       "top_p": settings.top_p,
       "stream": true,
       "stop": null

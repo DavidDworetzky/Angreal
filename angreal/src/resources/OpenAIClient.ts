@@ -1,5 +1,7 @@
 import * as axios from 'axios';
 import CompletionClient from './CompletionClient';
+import CompletionSettings from '../completionSettings';
+
 
 const modes = {
     'suggest':
@@ -36,8 +38,9 @@ const modes = {
 
 class OpenAIClient implements CompletionClient {
     private axiosInstance;
+    private CompletionSettings: CompletionSettings;
 
-    constructor(private apiKey: string) {
+    constructor(private apiKey: string, completionSettings: CompletionSettings) {
         this.axiosInstance = axios.default.create({
             baseURL: 'https://api.openai.com/v1/chat/',
             headers: {
@@ -45,6 +48,7 @@ class OpenAIClient implements CompletionClient {
                 'Content-Type': 'application/json',
             },
         });
+        this.CompletionSettings = completionSettings;
     }
 
     public async suggest(file: string, line: string, numberOfLines: number): Promise<string> {
@@ -66,6 +70,8 @@ class OpenAIClient implements CompletionClient {
       }
 
     public async chatCompletion(role: string, prompt: string, settings : any): Promise<string> {
+        settings.MaxTokens = this.CompletionSettings.MaxTokens ? this.CompletionSettings.MaxTokens : settings.max_tokens;
+        settings.Temperature = this.CompletionSettings.Temperature ? this.CompletionSettings.Temperature : settings.temperature;
         const requestBody = {
             model: 'gpt-4', // Assuming that this is the GPT-4 model's name
             messages: [
