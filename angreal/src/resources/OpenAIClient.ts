@@ -7,9 +7,9 @@ const modes = {
     'suggest':
     {
         'role':
-            'You are a coding assistant helping complete suggestions. You will be given a file context and a line of code, followed by a number of lines to complete.'
+            'You are a coding assistant helping complete suggestions. You will be given a file context a description of some code to complete.'
         ,
-        template: 'CONTEXT:{0},CODE:{1},NUMBER_OF_LINES:{2}',
+        template: 'CONTEXT:{0},CODE:{1}',
         settings: {
             "temperature" : 0.7,
             "top_p" : 1,
@@ -51,10 +51,10 @@ class OpenAIClient implements CompletionClient {
         this.CompletionSettings = completionSettings;
     }
 
-    public async suggest(file: string, line: string, numberOfLines: number): Promise<string> {
+    public async suggest(file: string, line: string): Promise<string> {
         const suggestionMode = modes['suggest'];
         const settings = suggestionMode.settings;
-        const prompt = modes['suggest'].template.replace('{0}', file).replace('{1}', line).replace('{2}', numberOfLines.toString());
+        const prompt = modes['suggest'].template.replace('{0}', file).replace('{1}', line);
         return await this.chatCompletion(suggestionMode.role,prompt, settings);
     }
 
