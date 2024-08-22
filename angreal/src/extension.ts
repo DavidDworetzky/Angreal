@@ -24,11 +24,10 @@ function registerAngrealSuggestionCommand(context: vscode.ExtensionContext, open
 				return;
 			}
 
-			let linesToComplete = await vscode.window.showInputBox({prompt: 'Enter the number of lines to complete'});
-			if (!linesToComplete) {
+			let codePrompt = await vscode.window.showInputBox({prompt: 'Enter the code prompt to complete'});
+			if (!codePrompt) {
 				return;
 			}
-			const linesToCompleteQuantity = parseInt(linesToComplete.trim());
 			const clientType = openAiClient.describe();
 			vscode.window.withProgress({
 				location: vscode.ProgressLocation.Notification,
@@ -40,7 +39,7 @@ function registerAngrealSuggestionCommand(context: vscode.ExtensionContext, open
 				});
 
 				progress.report({ increment: 0 });
-				const response = await openAiClient.suggest(entireContent, line, linesToCompleteQuantity);
+				const response = await openAiClient.suggest(entireContent, codePrompt ?? '');
 				// Add a newline to the beginning of the response 
 				const formattedResponse = '\n' + response;
 				progress.report({ increment: 100 });
